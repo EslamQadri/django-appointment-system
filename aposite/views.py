@@ -68,7 +68,27 @@ def All_Apointementsforuser (request):
     query=appointments.objects.filter(user=user)
     return render(request, 'user_view/AllApointements.html',{'details':query})
 
+@login_required(login_url='login')    
+def Cancelforuser(request):
+    user= request.user
+    query=appointments.objects.filter(user=user)
+    return render(request, 'user_view/Cancelforuser.html',{'details':query})
+@login_required(login_url='login')    
+def Cancelforuserbyid(request,id):
+    user= request.user
+    appointments.objects.filter(user=user).filter(id=id).delete()
+    return redirect('Cancelforuser')
 
+@login_required(login_url='login')    
+def Reschedule(request):
+    user= request.user
+    query=appointments.objects.filter(user=user)
+    return render(request, 'user_view/Reschedule.html',{'details':query})
+@login_required(login_url='login')    
+def Reschedulebyid(request,id,date):
+    user= request.user
+    appointments.objects.filter(user=user,id=id).update(Reserve=date,approve=False)
+    return redirect('Reschedule')
 @login_required(login_url='login')    
 def AdminViwe(request):
     user= request.user

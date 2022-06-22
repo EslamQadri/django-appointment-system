@@ -21,36 +21,34 @@
     <div class="row-1" >
       
         {% for x in details%}
-        {% for i in hagz  %}
-        <form method="post" id="rescheduleform{{i.id}}" action="/Rescheduleforuserajax" >
-          {% csrf_token %} 
+      
+    
         <div class="card">
            
             <div class="card-body">
-                <h5 class="card-title">Name : {{x.name}}</h5>
+       
                 
-            {% if i.accepted %}
+            {% if x.approve %}
             <h5 class="card-title">STATE : <span style="color: green">Accepted </span></h5>
               {%else%}
-              <h5 class="card-title" >STATE : <span style="color: red">Not Accepted </span></h5>
+              <h5 class="card-title" >STATE : <span style="color: red">Not Accepted Yet</span></h5>
               {%endif%}
 
               
-              <h5 class="card-text" id="thedata">Date:{{i.accepted_date}}</h5>
+              <h5 class="card-text" id="thedata">Date:{{x.Reserve}}</h5>
               
               
-              <input type="Date" class="Date" data-date-format="mm/dd/yyyy">
+              <input type="Date" class="Date" data-date-format="mm/dd/yyyy" name ='kalba'>
               <br><br>
-              <button type="submit" class="btn btn-primary" id='btn{{i.id}} '> Send Request</button>
 
             </div>
             
           </div>
           
-        </form>
+   
        
            {% endfor %}
-           {% endfor %}
+         
            
           
 </body>

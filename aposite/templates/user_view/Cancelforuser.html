@@ -13,27 +13,31 @@
     </head>
     
   <body>
-      <form method="post" >
-        {% csrf_token %}
-      {% for i in hagz%}
+    
+    <a class="btn btn-primary" href="{%url 'UserViwe'%}">Back</a> <br>
+      {% for i in details%}
       
     <div class="card" style="width: 18rem;">
                 
         <div class="card-body">
           <h5 class="card-title">Cancel The appointments  </h5>
-          <p class="card-text"> DATE :{{i.accepted_date}}</p>
-          {% if i.accepted %}
+          <p class="card-text"> DATE :{{i.Reserve}}</p>
+          <p class="card-text"> ID :{{i.id}}</p>
+
+          {% if i.approve %}
           <h5 class="card-title">STATE : <span style="color: green">Accepted </span></h5>
             {%else%}
-            <h5 class="card-title" >STATE : <span style="color: red">Not Accepted </span></h5>
+            <h5 class="card-title" >STATE : <span style="color: red">Not Accepted  Yet </span></h5>
             {%endif%}
 
-         <button type="submit" data="1{{i.Id}}"  value="submit{{i.Id}}" href="{% url 'Cancelforuser'%}" class="btn btn-primary">Send Cancel Request</button>
+         <a  href="{% url 'Cancelforuserbyid' i.id%}" class="btn btn-primary">Send Cancel Request</a>
         </div>
       </div>
       
           {%endfor%}
-    </form>
+          <br>
+          <a class="btn btn-primary" href="{%url 'UserViwe'%}">Back</a> <br>
+  
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
