@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="refresh" content="30">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>My Appointments</title>
+        
+    </head>
+<body>
+    <div class="row-1" >
+        {% for x in details%}
+      
+        <div class="card">
+           
+            <div class="card-body">
+               
+            {% if i.approve %}
+            <h5 class="card-title">STATE : <span style="color: green">Accepted </span></h5>
+              {%else%}
+              <h5 class="card-title" >STATE : <span style="color: red">Not Accepted Yet </span></h5>
+              {%endif%}
+
+              
+              <h5 class="card-text">Date : {{x.Reserve}}</h5>
+              
+              
+            </div>
+          </div>
+           {% endfor %}
+         
+       
+</body>
+</html>
