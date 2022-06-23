@@ -28,61 +28,61 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">logout</a>
                 </li>
-          
             </ul>
         </nav>
         <div class="card-group">
             <div class="card">
-              
                 <div class="card-body">
                     <br>
-                    <h5 class="card-title">All Apointements   </h5>
+                    <h5 class="card-title">All Apointements</h5>
                     <br>
                     <br>
-                  
-
                     <p class="card-text">
-                        <a  href="{%url 'allrequests' %}" class="btn btn-primary"> All Apointements</a>
+                        <a href="{% url 'allrequests' %}" class="btn btn-primary">All Apointements</a>
                     </p>
-                    
                 </div>
             </div>
             <div class="card">
-                
                 <div class="card-body">
                     <br>
-
                     <h5 class="card-title">Approved Requests</h5>
                     <p class="card-text">
                         <br>
-                    <br>
-                  
-                        <a  href="{%url 'ApproveRequest' %}" class="btn btn-primary"> All Apointements</a>
-                    </p>
-                  
-                </div>
-            </div>
-            <div class="card">
-                
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                        This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
-                    </p>
-                    <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                        <br>
+                        <a href="{% url 'ApproveRequest' %}" class="btn btn-primary">All Apointements</a>
                     </p>
                 </div>
             </div>
             <div class="card">
-                
+                <br>
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h5 class="card-title">Canceled appointments</h5>
                     <p class="card-text">
-                        This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
+                        <br>
+                        <br>
+                        <a href="{% url 'Cancel' %}" class="btn btn-primary">Canceled Apointements</a>
                     </p>
+                </div>
+            </div>
+            <div class="card">  
+                <br>
+                <div class="card-body">
+                    <h5 class="card-title">Upcoming appointments</h5>
                     <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                        <br>
+                        
+                        <a href="{% url 'upcoming' %}" class="btn btn-primary">Upcoming Apointements</a>
+                    </p>
+                </div>
+            </div>
+            <div class="card">  
+                <br>
+                <div class="card-body">
+                    <h5 class="card-title">last appointments</h5>
+                    <p class="card-text">
+                        <br>
+                        <br>
+                        <a href="{% url 'last' %}" class="btn btn-primary">last Apointements</a>
                     </p>
                 </div>
             </div>

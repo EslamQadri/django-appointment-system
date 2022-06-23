@@ -21,5 +21,10 @@ urlpatterns = [
     path('AdminApprove/<int:id>',views.AdminApprove,name='AdminApprove'),
     path('allrequests',views.allrequests,name='allrequests'),
     path('ApproveRequest', views.ApproveRequest, name='ApproveRequest'),
-    
+    path("Cancel",views.Cancel,name='Cancel'),
+    path('Cancelbyid/<int:id>', views.Cancelbyid, name='Cancelbyid'),
+    path('upcoming', views.upcoming, name='upcoming'),
+    path('last', views.last, name='last'),
+    path('asmissed/<int:id>', views.asmissed, name='asmissed'),
+    path('asfinished<int:id>', views.asfinished, name='asfinished'),
 ]

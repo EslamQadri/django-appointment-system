@@ -1,77 +1,118 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-       
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <title>Admin Dashboard</title>
-        
-    </head>
-    <body>
-
-        <nav class="navbar navbar-expand-sm bg-success navbar-dark">
-            <!-- Brand/logo -->
-            <a class="navbar-brand" href="#">
-              
-            </a>
-            
-            <!-- Links -->
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">{{user.first_name}} {{user.last_name}} </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link 2</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">logout</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'AdminViwe' %}">Back</a>
-              </li>
-              
-              
-            </ul>
-          </nav>
-         
-          {%for i in query %}
-          <div class=" col-3">
-            <div class="card" >
-                
-               <p><strong> Request from </strong>  {{i.user.first_name}} {{i.user.last_name}} </p>
-              
-               <p><strong>in </strong> {{i.Reserve}}<P>
-                {% if  i.approve %}
-            <h5 class="card-title">STATE : <span style="color: green">Accepted  </span></h5>
-              {%else%}
-              <h5 class="card-title" >STATE : <span style="color: red">Not Accepted Yet </span></h5>
-              {%endif%}
-
-            
-              <form action="{% url 'AdminApprove' i.id %}" method="post" >
-                {% csrf_token %}
-                <br>
-            
-                <br>
-
-               <input type="hidden" name="user" value= "{{i.user}}">
-             
-                <input class="btn-success" type="submit"   value="Accept Request" >
-              </form>
-              </div>
-            </div>
-
-              {%endfor%}
-          
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+      <!-- Brand/logo -->
+      <a class="navbar-brand" href="#"></a>
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ user.first_name }} {{ user.last_name }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link 2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'AdminViwe' %}">Back</a>
+        </li>
+      </ul>
+    </nav>
+    {% for i in query %}
+      <div class=" row-3">
+        <div class="card">
+          <p>
+            <strong>Request from</strong>  {{ i.user.first_name }} {{ i.user.last_name }}
+        </p>
+        <p>
+          <strong>in</strong> {{ i.Reserve }}
+        <P>
+          {% if  i.approve %}
+            <h5 class="card-title">
+              STATE : <span style="color: green">Accepted</span>
+            </h5>
+          {% else %}
+            <h5 class="card-title">
+              STATE : <span style="color: red">Not Accepted Yet</span>
+            </h5>
+          {% endif %}
+          {% if  i.Cancel %}
+            <h5 class="card-title">
+              STATE : <span style="color: red">Canceled</span>
+            </h5>
+          {% else %}
+            <h5 class="card-title">
+              STATE : <span style="color: green ">Not Canceled</span>
+            </h5>
+          {% endif %}
+          {% if  i.make_as_missed %}
+            <h5 class="card-title">
+              STATE : <span style="color: red">is missed</span>
+            </h5>
+          {% else %}
+            <h5 class="card-title">
+              STATE : <span style="color: green ">Not missed</span>
+            </h5>
+          {% endif %}
+          {% if  i.make_as_finished %}
+            <h5 class="card-title">
+              STATE : <span style="color:green ">is finished</span>
+            </h5>
+          {% else %}
+            <h5 class="card-title">
+              STATE : <span style="color:red  ">Not finished</span>
+            </h5>
+          {% endif %}
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <form action="{% url 'AdminApprove' i.id %}" method="post">
+              {% csrf_token %}
+              <br>
+              <br>
+              <input type="hidden" name="user" value= "{{ i.user }}">
+              <input class="btn-success" type="submit"   value="Accept Request">
+            </form>
+            <form action="{% url 'Cancelbyid' i.id %}" method="post">
+              {% csrf_token %}
+              <br>
+              <br>
+              <input type="hidden" name="user" value= "{{ i.user }}">
+              <input class="btn-danger" type="submit"   value="Cancel Request">
+            </form>
+            <form action="{% url 'asmissed' i.id %}" method="post">
+              {% csrf_token %}
+              <br>
+              <br>
+              <input type="hidden" name="user" value= "{{ i.user }}">
+              <input class="btn-success" type="submit"   value="make_as_missed">
+            </form>
+            <form action="{% url 'asfinished' i.id %}" method="post">
+              {% csrf_token %}
+              <br>
+              <br>
+              <input type="hidden" name="user" value= "{{ i.user }}">
+              <input class="btn-success" type="submit"   value="make_as_finished">
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>
-   
-

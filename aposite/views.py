@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import loginForm,dform
 from . models import appointments
+from django.utils import timezone
+from datetime import timedelta
 # Create your views here.
 
 def loginn(request):
@@ -124,4 +126,50 @@ def allrequests(request):
 def ApproveRequest(request):
     user= request.user
     query=appointments.objects.filter(approve=True)
-    return render(request, 'admin_view/all.html',{'user':user,'query':query})
+    return render(request, 'admin_view/Approved.html',{'user':user,'query':query})
+
+@login_required(login_url='login')    
+def Cancel(request):
+    user= request.user
+    query=appointments.objects.all()
+    return render(request, 'admin_view/Cancel.html',{'user':user,'query':query})
+
+@login_required(login_url='login')    
+@require_http_methods(['POST'])
+def Cancelbyid(request,id):
+    if request.POST:
+        user=request.POST.get('user')
+        appointments.objects.filter(user__username=user,id=id).update(Cancel=True,approve=False) 
+        return redirect("allrequests")
+
+    return redirect("allrequests")
+
+@login_required(login_url='login')    
+def upcoming (request):
+    now = timezone.now()
+    user= request.user
+    query=appointments.objects.filter(Reserve__gte=now.date())
+    return render(request, 'admin_view/upcoming.html',{'user':user,'query':query})
+@login_required(login_url='login')    
+def last (request):
+    now = timezone.now()
+    user= request.user
+    query=appointments.objects.filter(Reserve__lte=now.date())
+    return render(request, 'admin_view/Cancel.html',{'user':user,'query':query})
+
+@login_required(login_url='login')  
+@require_http_methods(['POST'])  
+def asmissed(request,id):
+    if request.POST:
+        user=request.POST.get('user')
+        appointments.objects.filter(user__username=user,id=id).update(make_as_missed=True) 
+        return redirect("allrequests")
+
+    return redirect("allrequests")
+@login_required(login_url='login')  
+@require_http_methods(['POST']) 
+def asfinished (request,id):
+     if request.POST:
+        user=request.POST.get('user')
+        appointments.objects.filter(user__username=user,id=id).update(make_as_finished=True) 
+        return redirect("allrequests")

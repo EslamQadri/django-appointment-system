@@ -44,10 +44,10 @@
                <p><strong> Request from </strong>  {{i.user.first_name}} {{i.user.last_name}}</p>
                
                <p><strong>in </strong> {{i.Reserve}}<P>
-                {% if  i.approve %}
-            <h5 class="card-title">STATE : <span style="color: green">Accepted  </span></h5>
+                {% if  i.Cancel %}
+            <h5 class="card-title">STATE : <span style="color: green">Canceled </span></h5>
               {%else%}
-              <h5 class="card-title" >STATE : <span style="color: red">Not Accepted Yet </span></h5>
+              <h5 class="card-title" >STATE : <span style="color: red">Not Canceled</span></h5>
               {%endif%}
 
             
