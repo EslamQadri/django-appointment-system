@@ -8,7 +8,9 @@ from django.contrib import messages
 from .forms import loginForm,dform
 from . models import appointments
 # Create your views here.
+
 def loginn(request):
+   
     if request.method == 'POST':
         print(request.POST)
         username = request.POST['email']
@@ -22,9 +24,7 @@ def loginn(request):
                 return redirect('AdminViwe')
             else :
                 return redirect('UserViwe')
-            u=User.objects.get(username=username)
-            print(dir(u))
-            return render(request,'home.html',{'user':us,'fname':(u)})
+           
         else :
             messages.error(request,'You need to login')
             return render(request, 'login/login.html',{'FF':loginForm}) 
@@ -58,7 +58,7 @@ def Reserve(request):
             messages.error(request,'You Have Error ')
             return redirect('Reserve')
 
-        appointments.objects.create(user=user,Reserve=date)
+       
 
         
     return render(request, 'user_view/Reserve.html',{'user':user,'dform':dform})
@@ -87,33 +87,19 @@ def Reschedule(request):
     return render(request, 'user_view/Reschedule.html',{'details':query})
 
 @login_required(login_url='login')    
-@require_http_methods(['POST','GET'])
-def Reschedulebyid(request):    
-    id =10
-    print(1)
+@require_http_methods(['POST'])
+def Reschedulebyid(request,id):    
+    
     print(request.POST)
     if request.method == 'POST':
-        print(2) 
         date =request.POST['date']
-        print(3)
         user= request.user
-        appointments.objects.get(user=user,id=id).update(Reserve=date,approve=False)
+        appointments.objects.filter(user=user,id=id).update(Reserve=date,approve=False) 
         return redirect('Reschedule')
-    if request.method == 'GET':
-        print(request.GET)
-       
-
-        print(22) 
-        date =request.GET.get('date')
-        print(date)
-        print(33)
-        appointments.objects.get(user=user,id=id).update(Reserve=date,approve=False)
-       
-       
-        
-        return redirect('Reschedule')    
+    
     return redirect('Reschedule')
 @login_required(login_url='login')    
 def AdminViwe(request):
     user= request.user
-    return render(request, 'admin_view/admin.html',{'user':user})
+    query=appointments.objects.filter(approve=False)
+    return render(request, 'admin_view/admin.html',{'user':user,'query':query})

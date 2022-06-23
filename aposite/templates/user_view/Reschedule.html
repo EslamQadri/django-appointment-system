@@ -35,15 +35,13 @@
               </h5>
             {% endif %}
             <h5 class="card-text" id="thedata">Date:{{ x.Reserve }}</h5>
-            <form action="{% url 'Rescheduleby'  %}" method="post" name ='date_form'>
+            <form action="{% url 'Rescheduleby' x.id %}" method="post" >
               {% csrf_token %}
               <br>
-              <input type="Date" class="Date" data-date-format="mm/dd/yyyy" name ='date'>
+              <input type="Date"  class="Date" data-date-format="mm/dd/yyyy" name ='date'>
               <br>
               <br>
-              <a type="submit"
-                 href="{% url 'Rescheduleby'  %}"
-                 class="btn btn-primary">Send Request To Edit Date</a>
+              <input  type="submit" />
             </form>
           </div>
         </div>

@@ -1,7 +1,10 @@
 from django.urls import path
 from . import views
+from django.views import View
+
+
 urlpatterns = [
-    path('login', views.loginn, name='login'),
+    path('login', getattr(views, 'loginn'), name='login'),
     path('Registration', views.Registration,name='Registration'),
     path('logout', views.logoutt,name='logout'),
 
@@ -12,7 +15,7 @@ urlpatterns = [
     path('Cancelforuser', views.Cancelforuser, name='Cancelforuser'),
     path('Cancel/<int:id>', views.Cancelforuserbyid, name='Cancelforuserbyid'),
     path('Reschedule',views.Reschedule,name='Reschedule'),
-    path('Reschedulebyid', views.Reschedulebyid, name='Rescheduleby'),
+    path('Reschedulebyid/<int:id>', views.Reschedulebyid, name='Rescheduleby'),
     #Admin Link
     path('AdminViwe', views.AdminViwe, name='AdminViwe'),
     
