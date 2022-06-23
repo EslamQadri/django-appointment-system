@@ -1,6 +1,7 @@
 import re
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import  require_http_methods
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -84,10 +85,33 @@ def Reschedule(request):
     user= request.user
     query=appointments.objects.filter(user=user)
     return render(request, 'user_view/Reschedule.html',{'details':query})
+
 @login_required(login_url='login')    
-def Reschedulebyid(request,id,date):
-    user= request.user
-    appointments.objects.filter(user=user,id=id).update(Reserve=date,approve=False)
+@require_http_methods(['POST','GET'])
+def Reschedulebyid(request):    
+    id =10
+    print(1)
+    print(request.POST)
+    if request.method == 'POST':
+        print(2) 
+        date =request.POST['date']
+        print(3)
+        user= request.user
+        appointments.objects.get(user=user,id=id).update(Reserve=date,approve=False)
+        return redirect('Reschedule')
+    if request.method == 'GET':
+        print(request.GET)
+       
+
+        print(22) 
+        date =request.GET.get('date')
+        print(date)
+        print(33)
+        appointments.objects.get(user=user,id=id).update(Reserve=date,approve=False)
+       
+       
+        
+        return redirect('Reschedule')    
     return redirect('Reschedule')
 @login_required(login_url='login')    
 def AdminViwe(request):
