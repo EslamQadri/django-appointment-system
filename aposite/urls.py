@@ -16,7 +16,10 @@ urlpatterns = [
     path('Cancel/<int:id>', views.Cancelforuserbyid, name='Cancelforuserbyid'),
     path('Reschedule',views.Reschedule,name='Reschedule'),
     path('Reschedulebyid/<int:id>', views.Reschedulebyid, name='Rescheduleby'),
-    #Admin Link
+    #Admin Links
     path('AdminViwe', views.AdminViwe, name='AdminViwe'),
+    path('AdminApprove/<int:id>',views.AdminApprove,name='AdminApprove'),
+    path('allrequests',views.allrequests,name='allrequests'),
+    path('ApproveRequest', views.ApproveRequest, name='ApproveRequest'),
     
 ]

@@ -101,5 +101,27 @@ def Reschedulebyid(request,id):
 @login_required(login_url='login')    
 def AdminViwe(request):
     user= request.user
-    query=appointments.objects.filter(approve=False)
-    return render(request, 'admin_view/admin.html',{'user':user,'query':query})
+
+    return render(request, 'admin_view/AdminHome.html',{'user':user,})
+
+@login_required(login_url='login')    
+@require_http_methods(['POST'])
+def AdminApprove(request,id):
+    if request.POST:
+        user=request.POST.get('user')
+        appointments.objects.filter(user__username=user,id=id).update(approve=True) 
+        return redirect("allrequests")
+
+    return redirect("allrequests")
+
+@login_required(login_url='login')    
+def allrequests(request):
+    user= request.user
+    query=appointments.objects.all()
+    return render(request, 'admin_view/all.html',{'user':user,'query':query})
+
+@login_required(login_url='login')    
+def ApproveRequest(request):
+    user= request.user
+    query=appointments.objects.filter(approve=True)
+    return render(request, 'admin_view/all.html',{'user':user,'query':query})
